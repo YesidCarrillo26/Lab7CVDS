@@ -9,9 +9,7 @@
 	c.nombre AS c_nombre,
 	c.documento AS c_documento,
 	c.telefono AS c_telefono,
-	c.direccion AS c_direccion,
-	c.email AS c_email,
-	c.vetado AS c_vetado,
+	
 
           	
 </mapper>
