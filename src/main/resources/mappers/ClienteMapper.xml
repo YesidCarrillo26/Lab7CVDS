@@ -4,7 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="edu.eci.cvds.sampleprj.dao.mybatis.mappers.ClienteMapper">
-
+<select parameterType="map" id="consultarCliente" resultMap="ClienteResult">
+	SELECT
+	c.nombre AS c_nombre,
+	c.documento AS c_documento,
+	c.telefono AS c_telefono,
+	c.direccion AS c_direccion,
+	c.email AS c_email,
+	c.vetado AS c_vetado,
 
           	
 </mapper>
