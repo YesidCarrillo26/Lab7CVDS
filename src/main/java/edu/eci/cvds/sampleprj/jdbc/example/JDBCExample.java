@@ -26,6 +26,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+// Ejecucion
+// mvn exec:java -Dexec.mainClass="edu.eci.cvds.sampleprj.jdbc.example.JDBCExample" -Dexec.args="argument1"
+
 /**
  *
  * @author hcadavid
@@ -100,15 +103,24 @@ public class JDBCExample {
     public static List<String> nombresProductosPedido(Connection con, int codigoPedido){
         List<String> np=new LinkedList<>();
 
-        String query = "SELECT nombre " + "FROM "
-        //Crear prepared statement
-
-
-        //asignar parámetros
-        //usar executeQuery
-        //Sacar resultados del ResultSet
-        //Llenar la lista y retornarla
-
+        String query = "SELECT nombre FROM ORD_PRODUCTOS op JOIN ORD_DETALLE_PEDIDO odp ON op.codigo= odp.pedido_fk" +
+                " where odp.pedido_fk = ?;";
+        try {
+            //Crear prepared statement
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            //asignar parámetros
+            preparedStatement.setInt(1,codigoPedido);
+            //usar executeQuery
+            ResultSet result = preparedStatement.executeQuery();
+            //Sacar resultados del ResultSet
+            while (result.next()) {
+                //Llenar la lista y retornarla
+                np.add(result.getString("nombre"));
+            }
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
         return np;
     }
 
@@ -120,13 +132,26 @@ public class JDBCExample {
      * @return el costo total del pedido (suma de: cantidades*precios)
      */
     public static int valorTotalPedido(Connection con, int codigoPedido){
+        String query = "SELECT SUM(cantidad*precio) FROM ORD_DETALLE_PEDIDO odp " +
+                "JOIN ORD_PRODUCTOS op ON (op.codigo = odp.producto_fk) where pedido_fk =?;";
 
-        //Crear prepared statement
-        //asignar parámetros
-        //usar executeQuery
-        //Sacar resultado del ResultSet
-
-        return 0;
+        int total = 0;
+        try {
+            //Crear prepared statement
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            //asignar parámetros
+            preparedStatement.setInt(1,codigoPedido);
+            //usar executeQuery
+            ResultSet resultSet = preparedStatement.executeQuery();
+            //Sacar resultado del ResultSet
+            while(resultSet.next()){
+                total = resultSet.getInt(1);
+            }
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return total;
     }
 
 
