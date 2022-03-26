@@ -83,8 +83,8 @@ public class MyBatisExample {
         System.out.println(im.consultarItems());
 
         int idItemPrueba = 545343;
-        System.out.println("\n--------------------------- CONSULTAR ITEM ID = " + idItemPrueba + " ---------------------------");
-        System.out.println(im.consultarItem(idItemPrueba));
+        //System.out.println("\n--------------------------- CONSULTAR ITEM ID = " + idItemPrueba + " ---------------------------");
+        //System.out.println(im.consultarItem(idItemPrueba));
 
         /* INSERCION EN TABLA ITEM  */
         //im.insertarItem(new Item(new TipoItem(4, "Producto"), 545343000, "Nullq", "hpla", Date.valueOf("2022-01-21"), 184000, "palabra", "hola"));
