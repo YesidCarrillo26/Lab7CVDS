@@ -55,30 +55,52 @@ public class MyBatisExample {
         return sqlSessionFactory;
     }
 
+
     /**
      * Programa principal de ejempo de uso de MyBATIS
      * @param args
-     * @throws SQLException 
+     * @throws SQLException
      */
     public static void main(String args[]) throws SQLException {
         SqlSessionFactory sessionfact = getSqlSessionFactory();
 
         SqlSession sqlss = sessionfact.openSession();
 
-        
-        //Crear el mapper y usarlo:
         ClienteMapper cm = sqlss.getMapper(ClienteMapper.class);
-        //ClienteMapper cm=sqlss.getMapper(ClienteMapper.class)
-        //cm...
+        System.out.println("\n---------------------------------------- CONSULTAR CLIENTES ----------------------------------------");
+        System.out.println(cm.consultarClientes());
+
+        int documentoPrueba = 6;
+        System.out.println("\n--------------------------- CONSULTAR CLIENTE DOCUMENTO = " + documentoPrueba + " ---------------------------");
+        System.out.println(cm.consultarCliente(documentoPrueba));
+
+        /* INSERCION  */
+        //cm.agregarItemRentadoACliente(346774, 1, Date.valueOf("2022-01-20"), Date.valueOf("2022-01-23"));
 
         ItemMapper im = sqlss.getMapper(ItemMapper.class);
-        
-        
+
+        System.out.println("\n------------------------------------------ CONSULTAR ITEMS -----------------------------------------");
+        System.out.println(im.consultarItems());
+
+        int idItemPrueba = 545343;
+        System.out.println("\n--------------------------- CONSULTAR ITEM ID = " + idItemPrueba + " ---------------------------");
+        System.out.println(im.consultarItem(idItemPrueba));
+
+        /* INSERCION EN TABLA ITEM  */
+        //im.insertarItem(new Item(new TipoItem(4, "Producto"), 545343000, "Nullq", "hpla", Date.valueOf("2022-01-21"), 184000, "palabra", "hola"));
+
+
+
+
         sqlss.commit();
+
+
         sqlss.close();
 
-        
-        
+
+
+
+
     }
 
 
